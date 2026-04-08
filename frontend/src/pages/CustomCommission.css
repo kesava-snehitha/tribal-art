@@ -1,0 +1,199 @@
+.commission-page {
+  padding-top: 60px;
+  min-height: 100vh;
+  background-color: #faf9f6;
+  font-family: 'Inter', sans-serif;
+}
+
+.commission-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/src/assets/tribal-painting.png') center/cover;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.commission-hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.commission-hero-content p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.commission-container {
+  max-width: 1200px;
+  margin: -50px auto 50px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.commission-info {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.commission-info h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.step-card {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.step-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #d35400;
+  opacity: 0.8;
+  font-family: monospace;
+}
+
+.step-text h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.step-text p {
+  color: #666;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.commission-form-container {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.commission-form h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.commission-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.commission-form input,
+.commission-form select,
+.commission-form textarea {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.commission-form input:focus,
+.commission-form select:focus,
+.commission-form textarea:focus {
+  outline: none;
+  border-color: #d35400;
+}
+
+.submit-commission-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #d35400;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.submit-commission-btn:hover {
+  background-color: #ba4a00;
+}
+
+.login-hint {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.commission-success {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #27ae60;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin: 0 auto 20px;
+}
+
+.commission-success h2 {
+  color: #27ae60;
+  margin-bottom: 15px;
+}
+
+.commission-success p {
+  color: #666;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .commission-container {
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+  }
+  
+  .form-group.row {
+    grid-template-columns: 1fr;
+  }
+}
