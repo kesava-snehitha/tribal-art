@@ -23,7 +23,7 @@ function ProductPage({ onAddToCart, isLoggedIn, user }) {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`http://localhost:8080/api/products/${id}`)
+    fetch(`/api/products/${id}`)
       .then(res => {
         if (!res.ok) throw new Error("Not found");
         return res.json();
@@ -46,7 +46,7 @@ function ProductPage({ onAddToCart, isLoggedIn, user }) {
       })
 
     // Fetch related products
-    fetch(`http://localhost:8080/api/products`)
+    fetch(`/api/products`)
       .then(res => res.json())
       .then(data => setAllProducts(data))
       .catch(err => console.error(err))

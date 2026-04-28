@@ -1,0 +1,23 @@
+services:
+  # Spring Boot Backend
+  - type: web
+    name: tribalart-backend
+    env: docker
+    rootDir: backend
+    plan: free
+
+  # React Frontend
+  - type: web
+    name: tribalart-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: false
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://tribalart-backend.onrender.com/api/*
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -14,7 +14,7 @@ function Home({ isLoggedIn, userRole }) {
   const [featuredProducts, setFeaturedProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/products')
+    fetch('/api/products')
       .then(res => res.json())
       .then(data => {
         const firstFour = data.slice(0, 4);

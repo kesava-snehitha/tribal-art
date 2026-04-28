@@ -18,7 +18,7 @@ function ProductListing({ cartItems, setCartItems }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/products')
+    fetch('/api/products')
       .then(res => res.json())
       .then(data => {
         setAllProducts(data)
