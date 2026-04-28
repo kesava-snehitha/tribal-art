@@ -13,8 +13,16 @@ function CustomerDashboard({ isLoggedIn, user }) {
 
   useEffect(() => {
     if (user && user.id) {
-      fetch(`/api/dashboard/${user.id}`)
-        .then(res => res.json())
+      const token = localStorage.getItem('token')
+      fetch(`/api/dashboard/${user.id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Unauthorized or fetch failed')
+          return res.json()
+        })
         .then(data => {
           setDashboardData(data)
           setLoading(false)
@@ -26,7 +34,7 @@ function CustomerDashboard({ isLoggedIn, user }) {
     }
   }, [user])
 
-  const { orders, wishlist, reviews } = dashboardData
+  const { orders = [], wishlist = [], reviews = [] } = dashboardData || {}
   
   if (loading && user) return <div className="loading">Loading dashboard...</div>
 

@@ -58,10 +58,12 @@ function Checkout({ cartItems, user }) {
       }))
     }
 
+    const token = localStorage.getItem('token')
     fetch('/api/orders/place', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(orderData)
     })

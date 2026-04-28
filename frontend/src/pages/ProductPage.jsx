@@ -60,8 +60,14 @@ function ProductPage({ onAddToCart, isLoggedIn, user }) {
 
   useEffect(() => {
     if (user && user.id) {
-      fetch(`/api/dashboard/${user.id}`)
-        .then(res => res.json())
+      const token = localStorage.getItem('token')
+      fetch(`/api/dashboard/${user.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Unauthorized')
+          return res.json()
+        })
         .then(data => {
           const wishlisted = data.wishlist || []
           setIsWishlisted(wishlisted.some(item => item.product.id === parseInt(id)))
@@ -99,8 +105,10 @@ function ProductPage({ onAddToCart, isLoggedIn, user }) {
     const method = isWishlisted ? 'DELETE' : 'POST'
     const action = isWishlisted ? 'remove' : 'add'
 
+    const token = localStorage.getItem('token')
     fetch(`/api/wishlist/${user.id}/${action}/${product.id}`, {
-      method: method
+      method: method,
+      headers: { 'Authorization': `Bearer ${token}` }
     })
     .then(res => {
       if (res.ok) {

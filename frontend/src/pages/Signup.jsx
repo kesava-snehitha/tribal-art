@@ -48,6 +48,7 @@ function Signup({ onSignup }) {
       .then(async res => {
         const data = await res.json()
         if (res.ok) {
+          localStorage.setItem('token', data.token)
           onSignup({ ...data.user, role: data.role || formData.userRole })
           navigate('/')
         } else {

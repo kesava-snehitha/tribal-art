@@ -23,6 +23,7 @@ function Login({ onLogin }) {
       .then(async res => {
         const data = await res.json()
         if (res.ok) {
+          localStorage.setItem('token', data.token)
           onLogin({ ...data.user, role: data.role })
           navigate('/')
         } else {

@@ -69,6 +69,7 @@ function App() {
     setUserRole(null)
     setUser(null)
     localStorage.removeItem('currentUser')
+    localStorage.removeItem('token')
     setCartItems([])
     showToast('Logged out successfully', 'success')
   }
