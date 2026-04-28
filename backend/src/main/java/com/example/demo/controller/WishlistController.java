@@ -34,8 +34,7 @@ public class WishlistController {
             return ResponseEntity.notFound().build();
         }
 
-        // Check if already in wishlist
-        List<WishlistItem> existing = wishlistRepository.findByUser(user);
+        List<WishlistItem> existing = wishlistRepository.findByUserId(userId);
         boolean exists = existing.stream().anyMatch(item -> item.getProduct().getId().equals(productId));
         
         if (!exists) {
@@ -53,7 +52,7 @@ public class WishlistController {
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) return ResponseEntity.notFound().build();
 
-        List<WishlistItem> items = wishlistRepository.findByUser(user);
+        List<WishlistItem> items = wishlistRepository.findByUserId(userId);
         items.stream()
             .filter(item -> item.getProduct().getId().equals(productId))
             .findFirst()

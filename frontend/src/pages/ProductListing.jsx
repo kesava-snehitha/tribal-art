@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'
 import img1 from '../assets/1.jpg'
 import img2 from '../assets/2.webp'
@@ -14,15 +14,21 @@ function ProductListing({ cartItems, setCartItems }) {
   const [sortBy, setSortBy] = useState('newest')
   const [priceRange, setPriceRange] = useState([0, 5000])
 
-  const allProducts = [
-    { id: 1, name: 'Wooden Basket', artisan: 'Lakshmi Artisans', price: 1299, category: 'Textiles', image: img1, rating: 5, reviews: 124, isVerified: true, description: 'Traditional handwoven basket' },
-    { id: 2, name: 'Tribal Pottery', artisan: 'Abhijit Pottery', price: 899, category: 'Pottery', image: img2, rating: 4, reviews: 89, isVerified: true, description: 'Authentic clay pottery' },
-    { id: 3, name: 'Wooden Mask', artisan: 'Kumar Crafts', price: 2499, category: 'Sculpture', image: img3, rating: 5, reviews: 156, isVerified: true, description: 'Carved wooden mask' },
-    { id: 4, name: 'Beaded Necklace', artisan: 'Priya Jewelry', price: 649, category: 'Jewelry', image: img4, rating: 4, reviews: 67, isVerified: true, description: 'Traditional beaded necklace' },
-    { id: 5, name: 'Ceramic Plates', artisan: 'Modern Pottery', price: 1899, category: 'Pottery', image: ceramicPlateImg, rating: 5, reviews: 102, isVerified: true, description: 'Beautiful ceramic plates' },
-    { id: 6, name: 'Tribal Painting', artisan: 'Saraswati Artists', price: 2499, category: 'Paintings', image: tribalPaintingImg, rating: 5, reviews: 80, isVerified: true, description: 'Colorful tribal painting' },
-    { id: 7, name: 'Wooden Sculpture', artisan: 'Tribal Woodcrafts', price: 3499, category: 'Sculpture', image: woodenSculptureImg, rating: 5, reviews: 124, isVerified: true, description: 'Tall hand-carved wooden sculpture' }
-  ]
+  const [allProducts, setAllProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/products')
+      .then(res => res.json())
+      .then(data => {
+        setAllProducts(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error("Failed to fetch products:", err)
+        setLoading(false)
+      })
+  }, [])
 
   const categories = ['all', 'Textiles', 'Jewelry', 'Pottery', 'Sculpture', 'Paintings']
 

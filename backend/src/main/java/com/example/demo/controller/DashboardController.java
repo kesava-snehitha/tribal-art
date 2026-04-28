@@ -39,9 +39,9 @@ public class DashboardController {
             return ResponseEntity.notFound().build();
         }
 
-        List<Order> orders = orderRepository.findByUser(user);
-        List<Review> reviews = reviewRepository.findByUser(user);
-        List<WishlistItem> wishlist = wishlistRepository.findByUser(user);
+        List<Order> orders = orderRepository.findByUserId(userId);
+        List<Review> reviews = reviewRepository.findByUserId(userId);
+        List<WishlistItem> wishlist = wishlistRepository.findByUserId(userId);
 
         Map<String, Object> response = new HashMap<>();
         response.put("orders", orders);

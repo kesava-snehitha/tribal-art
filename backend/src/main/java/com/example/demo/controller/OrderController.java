@@ -42,7 +42,6 @@ public class OrderController {
             Product product = productRepository.findById(itemReq.getProductId()).orElse(null);
             if (product != null) {
                 OrderItem item = new OrderItem();
-                item.setOrder(order);
                 item.setProduct(product);
                 item.setQuantity(itemReq.getQuantity());
                 item.setPrice(itemReq.getPrice());

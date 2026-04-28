@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import imghero from '../assets/hero.jpg'
 import img1 from '../assets/1.jpg'
@@ -10,85 +11,17 @@ import woodenSculptureImg from '../assets/wooden-sculpture.png'
 import './Home.css'
 
 function Home({ isLoggedIn, userRole }) {
-  const featuredProducts = [
-    {
-      id: 1,
-      name: 'Wooden Basket',
-      artisan: 'Lakshmi Artisans',
-      price: 1299,
-      image: img1,
-      rating: 5,
-      reviews: 124,
-      category: 'Textiles',
-      isVerified: true
-    },
-    {
-      id: 2,
-      name: 'Tribal Pottery',
-      artisan: 'Abhijit Pottery',
-      price: 899,
-      image: img2,
-      rating: 4,
-      reviews: 89,
-      category: 'Pottery',
-      isVerified: true
-    },
-    {
-      id: 3,
-      name: 'Wooden Mask',
-      artisan: 'Kumar Crafts',
-      price: 2499,
-      image: img3,
-      rating: 5,
-      reviews: 156,
-      category: 'Sculpture',
-      isVerified: true
-    },
-    {
-      id: 4,
-      name: 'Beaded Necklace',
-      artisan: 'Priya Jewelry',
-      price: 649,
-      image: img4,
-      rating: 4,
-      reviews: 67,
-      category: 'Jewelry',
-      isVerified: true
-    },
-    {
-      id: 5,
-      name: 'Ceramic Plates',
-      artisan: 'Modern Pottery',
-      price: 1899,
-      image: ceramicPlateImg,
-      rating: 5,
-      reviews: 102,
-      category: 'Pottery',
-      isVerified: true
-    },
-    {
-      id: 6,
-      name: 'Tribal Painting',
-      artisan: 'Saraswati Artists',
-      price: 2499,
-      image: tribalPaintingImg,
-      rating: 5,
-      reviews: 80,
-      category: 'Paintings',
-      isVerified: true
-    },
-    {
-      id: 7,
-      name: 'Wooden Sculpture',
-      artisan: 'Tribal Woodcrafts',
-      price: 3499,
-      image: woodenSculptureImg,
-      rating: 5,
-      reviews: 124,
-      category: 'Sculpture',
-      isVerified: true
-    }
-  ]
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/api/products')
+      .then(res => res.json())
+      .then(data => {
+        const firstFour = data.slice(0, 4);
+        setFeaturedProducts(firstFour);
+      })
+      .catch(err => console.error("Failed to fetch:", err));
+  }, []);
 
   const testimonials = [
     {

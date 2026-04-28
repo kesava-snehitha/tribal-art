@@ -18,169 +18,45 @@ function ProductPage({ onAddToCart, isLoggedIn, user }) {
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  // All products data
-  const allProducts = [
-    {
-      id: 1,
-      name: 'wooden basket',
-      artisan: 'Lakshmi Artisans',
-      price: 1299,
-      image: img1,
-      rating: 5,
-      reviews: 124,
-      category: 'Textiles',
-      isVerified: true,
-      gallery: [img1, img2, img3],
-      description: 'Beautiful handwoven tribal basket crafted using traditional techniques passed down through generations. Perfect for storage and decoration.',
-      features: {
-        'Material': 'Natural fibers',
-        'Dimensions': '30cm x 25cm x 20cm',
-        'Weight': '500g',
-        'Handmade': 'Yes',
-        'Certificate': 'Authenticity certificate included'
-      },
-      details: 'Each basket is unique and made with love by skilled artisans from rural communities. The weaving pattern tells a story of tribal heritage.',
-      shipping: 'Free shipping on orders above ₹.500',
-      returns: '30-day return policy',
-      seller: { name: 'Lakshmi Artisans', followers: '2.4K', items: '156 products', verified: true, rating: 4.8 }
-    },
-    {
-      id: 2,
-      name: 'tribal pottery',
-      artisan: 'Abhijit Pottery',
-      price: 899,
-      image: img2,
-      rating: 4,
-      reviews: 89,
-      category: 'Pottery',
-      isVerified: true,
-      gallery: [img2, img3, img4],
-      description: 'Authentic clay pottery handmade by traditional potters. Great for serving or display.',
-      features: {
-        'Material': 'Clay',
-        'Type': 'Decorative bowls',
-        'Size': 'Medium',
-        'Handmade': 'Yes',
-        'Safe': 'Food-safe & microwave-proof'
-      },
-      details: 'Made using age-old pottery techniques without any modern machinery.',
-      shipping: 'Free shipping',
-      returns: '15-day return policy',
-      seller: { name: 'Abhijit Pottery', followers: '1.2K', items: '89 products', verified: true, rating: 4.5 }
-    },
-    {
-      id: 3,
-      name: 'wooden mask',
-      artisan: 'Kumar Crafts',
-      price: 2499,
-      image: img3,
-      rating: 5,
-      reviews: 156,
-      category: 'Sculpture',
-      isVerified: true,
-      gallery: [img3, img4, img1],
-      description: 'Exquisitely carved tribal wooden mask. A collectors item and perfect home decor.',
-      features: {
-        'Material': 'Wood',
-        'Carving': 'Hand-carved',
-        'Size': '25cm height',
-        'Origin': 'Rural tribal region',
-        'Certificate': 'Authenticity certificate'
-      },
-      details: 'Each mask depicts unique tribal motifs and tells cultural stories.',
-      shipping: 'Secure packaging included',
-      returns: '7-day return policy',
-      seller: { name: 'Kumar Crafts', followers: '3.1K', items: '156 products', verified: true, rating: 4.9 }
-    },
-    {
-      id: 4,
-      name: 'Beaded Necklace',
-      artisan: 'Priya Jewelry',
-      price: 649,
-      image: img4,
-      rating: 4,
-      reviews: 67,
-      category: 'Jewelry',
-      isVerified: true,
-      gallery: [img4, img1, img2],
-      description: 'Beautiful handmade beaded necklace with tribal patterns.',
-      features: {
-        'Material': 'Beads & natural stones',
-        'Length': '45cm',
-        'Clasp': 'Secure hook clasp',
-        'Hypoallergenic': 'Yes',
-        'Package': 'Premium gift box included'
-      },
-      details: 'Each bead is individually selected and strung together with precision.',
-      shipping: 'Express delivery available',
-      returns: '30-day return policy',
-      seller: { name: 'Priya Jewelry', followers: '1.8K', items: '67 products', verified: true, rating: 4.7 }
-    },
-    {
-      id: 5,
-      name: 'ceramic plates',
-      artisan: 'Modern Pottery',
-      price: 1899,
-      image: ceramicPlateImg,
-      rating: 5,
-      reviews: 102,
-      category: 'Pottery',
-      isVerified: true,
-      gallery: [ceramicPlateImg, img1, img2],
-      description: 'Beautiful ceramic plates.',
-      features: { 'Material': 'Ceramic', 'Type': 'Dining' },
-      details: 'Hand painted.',
-      shipping: 'Free shipping',
-      returns: '30-day return policy',
-      seller: { name: 'Modern Pottery', followers: '1.8K', items: '67 products', verified: true, rating: 4.7 }
-    },
-    {
-      id: 6,
-      name: 'tribal painting',
-      artisan: 'Saraswati Artists',
-      price: 2499,
-      image: tribalPaintingImg,
-      rating: 5,
-      reviews: 80,
-      category: 'Paintings',
-      isVerified: true,
-      gallery: [tribalPaintingImg, img2, img3],
-      description: 'Colorful tribal painting.',
-      features: { 'Material': 'Canvas', 'Type': 'Art' },
-      details: 'Authentic canvas.',
-      shipping: 'Free shipping',
-      returns: '30-day return policy',
-      seller: { name: 'Saraswati Artists', followers: '1.8K', items: '67 products', verified: true, rating: 4.7 }
-    },
-    {
-      id: 7,
-      name: 'wooden sculpture',
-      artisan: 'Tribal Woodcrafts',
-      price: 3499,
-      image: woodenSculptureImg,
-      rating: 5,
-      reviews: 124,
-      category: 'Sculpture',
-      isVerified: true,
-      gallery: [woodenSculptureImg, img3, img4],
-      description: 'Tall hand-carved wooden sculpture.',
-      features: { 'Material': 'Wood', 'Type': 'Sculpture' },
-      details: 'Hand carved.',
-      shipping: 'Free shipping',
-      returns: '30-day return policy',
-      seller: { name: 'Tribal Woodcrafts', followers: '1.8K', items: '67 products', verified: true, rating: 4.7 }
-    }
-  ]
-
-  const product = allProducts.find(p => p.id === parseInt(id))
+  const [product, setProduct] = useState(null)
+  const [allProducts, setAllProducts] = useState([])
 
   useEffect(() => {
     setLoading(true)
-    setTimeout(() => setLoading(false), 500)
+    fetch(`http://localhost:8080/api/products/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not found");
+        return res.json();
+      })
+      .then(data => {
+        // Ensure default properties for UI components
+        data.gallery = [data.image, data.image, data.image]; // Mock gallery
+        data.features = { 'Material': data.category || 'Standard' };
+        data.seller = { name: data.artisan, followers: '1.2K', items: '10 products', verified: true, rating: 4.8 };
+        data.details = "Authentic handmade product.";
+        data.shipping = "Free shipping";
+        data.returns = "30-day return policy";
+        setProduct(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error(err)
+        setProduct(null)
+        setLoading(false)
+      })
+
+    // Fetch related products
+    fetch(`http://localhost:8080/api/products`)
+      .then(res => res.json())
+      .then(data => setAllProducts(data))
+      .catch(err => console.error(err))
+
     setQuantity(1)
     setSelectedImage(0)
     window.scrollTo(0, 0)
   }, [id])
+
+
 
   useEffect(() => {
     if (user && user.id) {
