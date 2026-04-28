@@ -23,10 +23,12 @@ function Cart({ cartItems, setCartItems }) {
 
   useEffect(() => {
     if (cartItems.length > 0) {
+      const token = localStorage.getItem('token') || '';
       fetch('/api/cart/calculate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(cartItems.map(item => ({
           id: item.id,
@@ -34,15 +36,21 @@ function Cart({ cartItems, setCartItems }) {
           quantity: item.quantity
         }))),
       })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Calculation failed');
+        return res.json();
+      })
       .then(data => setCalculations(data))
-      .catch(err => console.error('Calculation error:', err))
+      .catch(err => {
+        console.error('Calculation error:', err);
+        setCalculations({ subtotal: 0, tax: 0, shipping: 0, total: 0 });
+      })
     } else {
       setCalculations({ subtotal: 0, tax: 0, shipping: 0, total: 0 })
     }
   }, [cartItems])
 
-  const { subtotal, tax, shipping, total } = calculations
+  const { subtotal = 0, tax = 0, shipping = 0, total = 0 } = calculations || {}
 
   return (
     <div className="cart-page">
