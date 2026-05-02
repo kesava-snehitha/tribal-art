@@ -2,6 +2,9 @@
   "name": "full-stack",
   "version": "1.0.0",
   "scripts": {
+    "build:frontend": "cd frontend && npm install && npm run build",
+    "build:backend": "cd backend && ./mvnw clean package -DskipTests",
+    "build": "npm run build:frontend && npm run build:backend",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && .\\mvnw.cmd spring-boot:run",
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\""

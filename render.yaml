@@ -2,9 +2,11 @@ services:
   # Spring Boot Backend
   - type: web
     name: tribalart-backend
-    env: docker
+    env: java
     rootDir: backend
     plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/demo-0.0.1-SNAPSHOT.jar
 
   # React Frontend
   - type: web
